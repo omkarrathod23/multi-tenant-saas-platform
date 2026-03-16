@@ -78,7 +78,11 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(
-            List.of("http://localhost:3000", "http://localhost:5173")
+            List.of(
+                "http://localhost:3000",
+                "http://localhost:5173",
+                "https://multi-tenant-saas-platform-dvn.vercel.app"
+            )
         );
         configuration.setAllowedMethods(
             Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")

@@ -26,7 +26,7 @@ spring:
         multi_tenant_connection_provider: com.saas.config.TenantConnectionProvider
 
 server:
-  port: 8080
+  port: ${PORT:8080}
   error:
     include-message: always
     include-binding-errors: always

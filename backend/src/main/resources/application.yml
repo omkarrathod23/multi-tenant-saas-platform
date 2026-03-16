@@ -3,9 +3,9 @@ spring:
     name: multi-tenant-saas
   
   datasource:
-    url: jdbc:postgresql://localhost:5432/saas_db
-    username: saas_user
-    password: saas123
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/saas_db}
+    username: ${DB_USERNAME:saas_user}
+    password: ${DB_PASSWORD:saas123}
 
     driver-class-name: org.postgresql.Driver
     hikari:

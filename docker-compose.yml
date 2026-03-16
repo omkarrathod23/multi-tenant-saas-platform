@@ -1,41 +1,18 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: saas-postgres
-    environment:
-      POSTGRES_DB: saas_db
-      POSTGRES_USER: ${DB_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - saas-network
-
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: saas-backend
     environment:
-      DB_USERNAME: ${DB_USERNAME:-postgres}
-      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DATABASE_URL: ${DATABASE_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET:-your-256-bit-secret-key-change-this-in-production-minimum-32-characters}
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/saas_db
     ports:
       - "8080:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
     networks:
       - saas-network
     restart: unless-stopped
@@ -46,7 +23,7 @@ services:
       dockerfile: Dockerfile
     container_name: saas-frontend
     environment:
-      VITE_API_URL: http://localhost:8080/api
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8080/api}
     ports:
       - "3000:80"
     depends_on:

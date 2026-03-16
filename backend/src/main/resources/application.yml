@@ -11,6 +11,8 @@ spring:
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
+      connection-timeout: 30000
+      keepalive-time: 60000
   
   jpa:
     hibernate:
@@ -19,6 +21,7 @@ spring:
     open-in-view: false
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         multiTenancy: SCHEMA
         tenant_identifier_resolver: com.saas.config.TenantIdentifierResolver

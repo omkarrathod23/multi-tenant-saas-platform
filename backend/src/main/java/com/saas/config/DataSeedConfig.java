@@ -30,20 +30,36 @@ public class DataSeedConfig {
         return args -> {
             System.out.println("🚀 Starting data seeding process...");
 
-            // 1. Ensure Default Tenant Exists in Master Schema
-            Tenant tenant = tenantRepository.findBySchema("test_tenant").orElse(null);
-            if (tenant == null) {
-                tenant = new Tenant();
-                tenant.setName("Test Tenant");
-                tenant.setSchema("test_tenant");
-                tenant.setSubscriptionPlan(SubscriptionPlan.PRO);
-                tenant.setActive(true);
-                tenant.setCreatedAt(LocalDateTime.now());
-                tenant = tenantRepository.save(tenant);
-                System.out.println("✅ Default tenant created with ID: " + tenant.getId());
-            } else {
-                System.out.println("ℹ️ Default tenant already exists with ID: " + tenant.getId());
-            }
+            try {
+                // 0. Ensure Master Schema and Tenants Table Exist
+                // This is critical for the master repository to function on a fresh DB
+                jdbcTemplate.execute("CREATE SCHEMA IF NOT EXISTS master");
+                System.out.println("✅ Master schema verified/created.");
+
+                jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS master.tenants (" +
+                        "id BIGSERIAL PRIMARY KEY, " +
+                        "name VARCHAR(255) NOT NULL, " +
+                        "schema_name VARCHAR(255) NOT NULL UNIQUE, " +
+                        "subscription_plan VARCHAR(50) NOT NULL, " +
+                        "active BOOLEAN NOT NULL DEFAULT true, " +
+                        "created_at TIMESTAMP NOT NULL, " +
+                        "updated_at TIMESTAMP)");
+                System.out.println("✅ Table 'master.tenants' verified/created.");
+
+                // 1. Ensure Default Tenant Exists in Master Schema
+                Tenant tenant = tenantRepository.findBySchema("test_tenant").orElse(null);
+                if (tenant == null) {
+                    tenant = new Tenant();
+                    tenant.setName("Test Tenant");
+                    tenant.setSchema("test_tenant");
+                    tenant.setSubscriptionPlan(SubscriptionPlan.PRO);
+                    tenant.setActive(true);
+                    tenant.setCreatedAt(LocalDateTime.now());
+                    tenant = tenantRepository.save(tenant);
+                    System.out.println("✅ Default tenant created with ID: " + tenant.getId());
+                } else {
+                    System.out.println("ℹ️ Default tenant already exists with ID: " + tenant.getId());
+                }
             
             // 2. Ensure the tenant schema exists in PostgreSQL
             jdbcTemplate.execute("CREATE SCHEMA IF NOT EXISTS " + tenant.getSchema());

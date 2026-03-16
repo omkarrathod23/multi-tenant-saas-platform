@@ -81,9 +81,11 @@ public class SecurityConfig {
             List.of(
                 "http://localhost:3000",
                 "http://localhost:5173",
+                "https://multi-tenant-saas-platform-dun.vercel.app",
                 "https://multi-tenant-saas-platform-dvn.vercel.app"
             )
         );
+        configuration.setAllowedOriginPatterns(List.of("https://*.vercel.app"));
         configuration.setAllowedMethods(
             Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")
         );

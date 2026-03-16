@@ -36,7 +36,16 @@ class WebSocketService {
   connect(token: string, tenantId: number): void {
     if (this.client?.active) return;
 
-    const wsUrl = import.meta.env.VITE_WS_URL || 'http://localhost:8080/ws';
+    let wsUrl = import.meta.env.VITE_WS_URL;
+    
+    // If no URL is provided, derive it from the current location (same host)
+    if (!wsUrl) {
+      const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+      const host = window.location.hostname === 'localhost' ? 'localhost:8080' : window.location.host;
+      wsUrl = `${protocol}//${host}/ws`;
+    }
+
+    console.log('🔌 Connecting to WebSocket at:', wsUrl);
 
     this.client = new Client({
       webSocketFactory: () => new SockJS(`${wsUrl}?token=${token}`),

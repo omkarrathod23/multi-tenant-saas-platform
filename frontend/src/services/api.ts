@@ -53,7 +53,7 @@ class ApiService {
     const payload = {
       email: data.email,
       password: data.password,
-      tenantId: data.tenantId || localStorage.getItem("tenantId") || "3",
+      tenantId: data.tenantId || localStorage.getItem("tenantId") || "1",
     };
     const res = await this.api.post("/auth/login", payload);
 

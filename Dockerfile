@@ -8,8 +8,8 @@ RUN mvn -f backend/pom.xml clean package -DskipTests
 # Run stage
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
-# Copy the built jar from the build stage
-COPY --from=build /app/backend/target/*.jar app.jar
+# Copy only the executable jar (avoiding .original)
+COPY --from=build /app/backend/target/multi-tenant-saas-1.0.0.jar app.jar
 
 # Expose the default Spring Boot port (will be overridden by $PORT on Render)
 EXPOSE 8080

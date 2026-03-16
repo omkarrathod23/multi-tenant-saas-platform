@@ -13,6 +13,7 @@ import TenantManagement from './pages/TenantManagement';
 import Settings from './pages/Settings';
 import Billing from './pages/Billing';
 import AuditLogs from './pages/AuditLogs';
+import LandingPage from './pages/LandingPage';
 
 const AppRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -69,7 +70,7 @@ const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<LandingPage />} />
     </Routes>
   );
 };

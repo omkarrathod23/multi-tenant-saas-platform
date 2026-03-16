@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
-import { User, Bell, Shield, Globe, Save, Lock } from 'lucide-react';
+import { User, Bell, Shield, Globe, Save, Lock, Database } from 'lucide-react';
 import { toast } from 'react-toastify';
 
 const Settings: React.FC = () => {

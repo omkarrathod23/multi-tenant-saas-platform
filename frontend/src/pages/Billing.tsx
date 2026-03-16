@@ -3,7 +3,6 @@ import AppShell from '@/components/layout/AppShell';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { motion } from 'framer-motion';
 import { CreditCard, Check, Zap, Download, AlertCircle, TrendingUp } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';

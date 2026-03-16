@@ -30,9 +30,9 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import apiService from '@/services/api';
-import { User, UserRequest } from '../types';
+import { User } from '../types';
 import { toast } from 'react-toastify';
-import { Plus, Search, MoreVertical, Edit, Trash2, UserPlus, Users } from 'lucide-react';
+import { Search, MoreVertical, Edit, Trash2, UserPlus, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import UserDialog from '@/components/UserDialog';
 

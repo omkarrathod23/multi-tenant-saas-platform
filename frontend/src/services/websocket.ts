@@ -3,6 +3,7 @@ import SockJS from 'sockjs-client';
 
 export interface WebSocketNotification {
   type: string;
+  title?: string;
   message: string;
   severity: 'INFO' | 'WARNING' | 'ERROR' | 'SUCCESS';
   timestamp: string;
@@ -12,6 +13,7 @@ export interface DashboardMetrics {
   totalUsers: number;
   activeUsers: number;
   onlineUsers: number;
+  growthRate?: number;
   timestamp: string;
 }
 
@@ -44,7 +46,7 @@ class WebSocketService {
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      debug: (msg) => {
+      debug: (msg: string) => {
         if (import.meta.env.DEV) {
           console.log('[STOMP]', msg);
         }
@@ -61,7 +63,7 @@ class WebSocketService {
         this.connected = false;
       },
 
-      onStompError: (frame) => {
+      onStompError: (frame: any) => {
         console.error('❌ STOMP error', frame);
       }
     });
@@ -93,17 +95,17 @@ class WebSocketService {
 
   onNotification(cb: Callback<WebSocketNotification>) {
     this.notificationCbs.add(cb);
-    return () => this.notificationCbs.delete(cb);
+    return () => { this.notificationCbs.delete(cb); };
   }
 
   onMetrics(cb: Callback<DashboardMetrics>) {
     this.metricsCbs.add(cb);
-    return () => this.metricsCbs.delete(cb);
+    return () => { this.metricsCbs.delete(cb); };
   }
 
   onUserStatus(cb: Callback<UserStatusUpdate>) {
     this.statusCbs.add(cb);
-    return () => this.statusCbs.delete(cb);
+    return () => { this.statusCbs.delete(cb); };
   }
 
   isConnected() {

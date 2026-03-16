@@ -23,9 +23,9 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import apiService from '@/services/api';
-import { Tenant, TenantRequest } from '../types';
+import { Tenant } from '../types';
 import { toast } from 'react-toastify';
-import { Plus, Search, MoreVertical, Edit, Trash2, Building2, Globe } from 'lucide-react';
+import { Plus, Search, MoreVertical, Edit, Trash2, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import TenantDialog from '@/components/TenantDialog';
 

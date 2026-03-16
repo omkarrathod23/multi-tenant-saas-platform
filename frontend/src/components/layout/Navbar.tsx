@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Moon, Sun, Search, User, LogOut, Settings } from 'lucide-react';
+import { Moon, Sun, Search, LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import NotificationCenter from '@/components/NotificationCenter';
 import {
@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Navbar: React.FC = () => {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 

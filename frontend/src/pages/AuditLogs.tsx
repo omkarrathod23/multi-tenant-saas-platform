@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/services/api";
-import { AuditLog, AuditSummary } from "@/types/audit";
-import AuditTimeline from "@/components/AuditTimeline";
+import { 
+  Activity,
+  TrendingUp,
+  AlertCircle,
+  CheckCircle2,
+  Users
+} from "lucide-react";
+import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,14 +20,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Activity,
-  TrendingUp,
-  AlertCircle,
-  CheckCircle2,
-  Users,
-} from "lucide-react";
-import { toast } from "react-toastify";
+
+// Mock AuditTimeline component as it was missing or removed
+const AuditTimeline: React.FC<{ logs: any[]; loading: boolean }> = ({ logs, loading }) => (
+  <div className="space-y-4">
+    {loading ? (
+      <p>Loading activities...</p>
+    ) : logs.length === 0 ? (
+      <p>No activity logs found.</p>
+    ) : (
+      logs.map((log, i) => (
+        <div key={i} className="flex gap-4 p-3 border-b border-slate-100 last:border-0">
+          <div className="mt-1"><Activity className="w-4 h-4 text-blue-500" /></div>
+          <div>
+            <p className="text-sm font-semibold">{log.actionType}</p>
+            <p className="text-xs text-slate-500">{log.userEmail} • {new Date(log.timestamp).toLocaleString()}</p>
+            <p className="text-sm mt-1">{log.details}</p>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+);
+
+interface AuditLog {
+  id: number;
+  userEmail: string;
+  actionType: string;
+  timestamp: string;
+  details: string;
+  status: string;
+  ipAddress: string;
+}
+
+interface AuditSummary {
+  totalActivities: number;
+  successActivities: number;
+  failedActivities: number;
+  successRate: number;
+}
 
 interface FilterState {
   userEmail: string;

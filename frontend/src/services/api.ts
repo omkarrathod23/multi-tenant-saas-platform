@@ -159,6 +159,11 @@ class ApiService {
     return res.data;
   }
 
+  async deleteUser(id: number | string) {
+    const res = await this.api.delete(`/users/${id}`);
+    return res.data;
+  }
+
   // 🏢 TENANTS
   async getTenants() {
     const res = await this.api.get("/tenants");

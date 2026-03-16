@@ -14,7 +14,7 @@ export interface Tenant {
   id: number;
   name: string;
   schema: string;
-  subscriptionPlan: 'FREE' | 'PRO';
+  subscriptionPlan: 'FREE' | 'PRO' | 'ENTERPRISE';
   active: boolean;
   createdAt: string;
   updatedAt: string;
@@ -62,6 +62,6 @@ export interface UserRequest {
 
 export interface TenantRequest {
   name: string;
-  subscriptionPlan: 'FREE' | 'PRO';
+  subscriptionPlan: 'FREE' | 'PRO' | 'ENTERPRISE';
 }
 

@@ -3,21 +3,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { 
-  Shield, 
-  Globe, 
-  Zap, 
-  Users, 
-  BarChart3, 
-  Lock, 
-  ArrowRight,
+  Shield,
+  Zap,
+  TrendingUp,
   Layout,
-  Server,
-  Database,
-  CheckCircle2,
   ChevronRight,
-  Menu,
-  X,
-  Building2,
+  ArrowRight,
+  Plus,
   Activity,
   Mail,
   MessageSquare,
@@ -25,10 +17,15 @@ import {
   Github,
   Twitter,
   Linkedin,
-  TrendingUp,
   CreditCard,
   Settings,
-  Bell
+  Bell,
+  Users,
+  Lock,
+  Building2,
+  X,
+  Menu,
+  CheckCircle2
 } from 'lucide-react';
 
 const LandingPage: React.FC = () => {

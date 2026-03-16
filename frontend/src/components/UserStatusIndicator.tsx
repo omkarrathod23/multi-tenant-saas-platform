@@ -4,14 +4,11 @@ import websocketService, { UserStatusUpdate } from '@/services/websocket';
 import { useAuth } from '@/context/AuthContext';
 
 const UserStatusIndicator: React.FC<{ userId: number }> = ({ userId }) => {
-  const { user } = useAuth();
   const [status, setStatus] = useState<'ONLINE' | 'OFFLINE' | 'AWAY'>('OFFLINE');
-  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
     // Check WebSocket connection status
     const wsConnected = websocketService.isConnected();
-    setIsConnected(wsConnected);
 
     // Subscribe to user status updates
     const unsubscribe = websocketService.onUserStatus((statusUpdate: UserStatusUpdate) => {

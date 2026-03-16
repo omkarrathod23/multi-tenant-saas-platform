@@ -5,15 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Skeleton } from '@/components/ui/skeleton';
 import { 
   Users, 
-  Building2, 
   TrendingUp, 
   Activity,
   ArrowUpRight,
   ArrowDownRight,
-  Zap,
-  Target
+  Zap
 } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, LineChart, Line } from 'recharts';
+import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, LineChart, Line } from 'recharts';
 import { motion } from 'framer-motion';
 import apiService from '@/services/api';
 import Chatbot from '@/components/Chatbot';
@@ -58,7 +56,7 @@ const Dashboard: React.FC = () => {
             setStats({
               totalUsers: usersResponse.data.length,
               totalTenants: 0,
-              activeUsers: usersResponse.data.filter(u => u.active).length,
+              activeUsers: usersResponse.data.filter((u: any) => u.active).length,
               growth: 12.5,
             });
           }
@@ -166,7 +164,7 @@ const Dashboard: React.FC = () => {
 
         {/* Stats Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {statCards.map((stat, index) => {
+          {statCards.map((stat) => {
             const Icon = stat.icon;
             return (
               <motion.div
